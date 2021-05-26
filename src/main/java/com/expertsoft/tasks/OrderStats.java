@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -28,7 +29,9 @@ class OrderStats {
      * @return list, containing orders paid with provided card type
      */
     static List<Order> ordersForCardType(final Stream<Customer> customers, PaymentInfo.CardType cardType) {
-        return null;
+        return customers.flatMap(customer -> customer.getOrders().stream())
+                .filter(order -> order.getPaymentInfo().getCardType().equals(cardType))
+                .collect(Collectors.toList());
     }
 
     /**
