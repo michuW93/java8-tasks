@@ -44,7 +44,10 @@ class OrderStats {
      * @return map, where order size values mapped to lists of orders
      */
     static Map<Integer, List<Order>> orderSizes(final Stream<Order> orders) {
-        return null;
+        Map<Integer, List<Order>> answer = orders.collect(Collectors.groupingBy(order -> order.getOrderItems().stream().
+                mapToInt(OrderItem::getQuantity).sum()));
+        System.out.println(orders);
+        return answer;
     }
 
     /**
